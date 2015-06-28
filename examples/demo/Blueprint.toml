@@ -1,0 +1,3 @@
+style_dir = "./styles/"
+template_dir = "./templates/"
+page_dir = "./pages/"
