@@ -1,6 +1,6 @@
-title = "Foo"
+title = "Test2"
 author = "Bear"
 template = "test"
 ------
 
-Foooo
+This is the index!
