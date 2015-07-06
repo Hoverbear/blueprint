@@ -1,3 +1,32 @@
-style_dir = "./styles/"
-template_dir = "./templates/"
-page_dir = "./pages/"
+# Welcome! Blueprint is controlled almost entirely through this file and that
+# of the files themselves. Feel encouraged to use this as your default.
+# The format is [TOML](https://github.com/toml-lang/toml).
+
+# Workers let you define any partials or templates for your particular needs
+# Options here are defined by the worker.
+# Declaring a Resource implicitly loads it. To just use defaults do `[Worker.$WORKER]`
+[Worker.Handlebars]
+# The template directory. For now, this is a string. plans for arrays and globs.
+templates = "./templates"
+# Use directories and indexes. So every url looks nice (no .html)
+nice_urls = true
+# Any toml data here will be unioned into the rendered data.
+title = "An Example"
+author = "Anony-mouse"
+baseurl = "/"
+
+# Tasks are units of work that must be done to build the blueprint.
+# There is no gaurantee of order, however you can be gauranteed that all
+# resources and metadata will be loaded.
+[Task.Styles]
+# All values (including worker) are passed to the worker.
+worker = "copy"
+source = "./styles/"
+destination = "./styles/"
+
+[Task.Pages]
+worker = "handlebars"
+source = "./pages/"
+destination = "./"
+# The value which data outside of the metadata is stored in.
+content_key = "content"
