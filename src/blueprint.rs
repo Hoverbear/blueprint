@@ -26,7 +26,6 @@ impl Blueprint {
 
     fn load_workers(workers: BTreeMap<String, Value>) -> Result<BTreeMap<String, Box<Worker>>> {
         workers.into_iter().map(|(key, val)| {
-            println!("Loading worker {} with {:?}", key, val);
             let options = match val {
                 Value::Table(t)  => t,
                 _                => return Err(BlueprintError::Config("Worker is not table").into()),
@@ -41,20 +40,19 @@ impl Blueprint {
         }).collect()
     }
 
-    pub fn run_tasks(&mut self, tasks: &BTreeMap<String, Task>) -> Vec<Result<()>> {
-        tasks.iter().map(|(key, task)| self.run_task(key, task)).collect()
-    }
-
     pub fn run_task(&mut self, name: &String, task: &Task) -> Result<()> {
-        println!("Starting task {}", name);
+        println!("DEBUG {:?}", self.workers.keys().collect::<Vec<_>>());
         task.get("worker")
-            .ok_or(BlueprintError::Config("Worker not specified").into())
+            .ok_or(BlueprintError::Config("Worker not specified.").into())
             .and_then(|worker_string| {
                 match worker_string {
                     &Value::String(ref val) => self.workers.get(val)
-                                            .ok_or(BlueprintError::Config("Worker not found.").into()),
+                                                .ok_or(BlueprintError::Config("Worker not found.").into()),
                     _                   => Err(BlueprintError::Config("Worker should be string.").into()),
                 }
-            }).and_then(|worker| worker.run(task))
+            }).and_then(|worker| {
+                println!("Running {:?}", name);
+                worker.run(task)
+            })
     }
 }

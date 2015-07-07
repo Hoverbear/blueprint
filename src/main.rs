@@ -66,11 +66,12 @@ fn main() {
 
     let mut blueprint = Blueprint::new(config)
         .unwrap();
-    blueprint.run_tasks(&tasks).iter();
 
-
-
-
+    tasks.iter()
+    .inspect(|&(ref key, ref task)| println!("Starting {:?}: {:#?}", key, task))
+    .map(|(key, task)| (key.clone(), blueprint.run_task(key, task)))
+    .inspect(|&(ref key, ref result)| println!("Result: {:?}: {:#?}", key, result))
+    .collect::<BTreeMap<String, Result<()>>>();
 
     // // Read in all the templates.
     // let mut templates_path = PathBuf::from(&source);

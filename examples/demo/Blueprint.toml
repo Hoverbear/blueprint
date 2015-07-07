@@ -8,25 +8,24 @@
 [Worker.Handlebars]
 # The template directory. For now, this is a string. plans for arrays and globs.
 templates = "./templates"
-# Use directories and indexes. So every url looks nice (no .html)
-nice_urls = true
-# Any toml data here will be unioned into the rendered data.
+# TODO: Any toml data here will be unioned into the rendered data.
 title = "An Example"
 author = "Anony-mouse"
 baseurl = "/"
+
+# Delare a worker with no options.
+[Worker.Copy]
 
 # Tasks are units of work that must be done to build the blueprint.
 # There is no gaurantee of order, however you can be gauranteed that all
 # resources and metadata will be loaded.
 [Task.Styles]
 # All values (including worker) are passed to the worker.
-worker = "copy"
+worker = "Copy"
 source = "./styles/"
 destination = "./styles/"
 
 [Task.Pages]
-worker = "handlebars"
+worker = "Handlebars"
 source = "./pages/"
 destination = "./"
-# The value which data outside of the metadata is stored in.
-content_key = "content"

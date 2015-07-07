@@ -35,4 +35,5 @@ wrapped_enum!{#[derive(Debug)] pub enum Error,
     Io(io::Error),
     Template(handlebars::TemplateError),
     Blueprint(BlueprintError),
+    Renderer(handlebars::RenderError),
 }
