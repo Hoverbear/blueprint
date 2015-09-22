@@ -17,7 +17,7 @@ baseurl = "/"
 [Worker.Copy]
 
 # Tasks are units of work that must be done to build the blueprint.
-# There is no gaurantee of order, however you can be gauranteed that all
+# There is no guarantee of order, however you can be guaranteed that all
 # resources and metadata will be loaded.
 [Task.Styles]
 # All values (including worker) are passed to the worker.
